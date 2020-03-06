@@ -31,7 +31,7 @@
       <p>Lorem ipsum dolor sit amet.</p>
     </main>
     <footer>
-<!--        Form-->
+      <app-comment-form/>
       <div v-if="true">
         <app-comment
           v-for="item in 4"
@@ -47,13 +47,15 @@
 
 <script>
   import AppComment from '@/components/main/Comment'
+  import AppCommentForm from '@/components/main/CommentForm'
 
   export default {
     validate({params}) {
       return Boolean(params.id)
     },
     components: {
-      AppComment
+      AppComment,
+      AppCommentForm
     }
   }
 </script>
