@@ -31,15 +31,29 @@
       <p>Lorem ipsum dolor sit amet.</p>
     </main>
     <footer>
+<!--        Form-->
+      <div v-if="true">
+        <app-comment
+          v-for="item in 4"
+          :key="item"
+          :comment="item"
+        />
 
+      </div>
+    <div class="text-center" v-else>Комментариев нет</div>
     </footer>
   </article>
 </template>
 
 <script>
+  import AppComment from '@/components/main/Comment'
+
   export default {
     validate({params}) {
       return Boolean(params.id)
+    },
+    components: {
+      AppComment
     }
   }
 </script>
