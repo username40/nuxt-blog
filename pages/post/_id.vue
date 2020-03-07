@@ -31,14 +31,16 @@
       <p>Lorem ipsum dolor sit amet.</p>
     </main>
     <footer>
-      <app-comment-form/>
+      <app-comment-form
+        v-if="canAddComment"
+        @created="createCommentHandler"
+      />
       <div v-if="true">
         <app-comment
           v-for="item in 4"
           :key="item"
           :comment="item"
         />
-
       </div>
     <div class="text-center" v-else>Комментариев нет</div>
     </footer>
@@ -52,6 +54,16 @@
   export default {
     validate({params}) {
       return Boolean(params.id)
+    },
+    data() {
+      return {
+        canAddComment: true
+      }
+    },
+    methods: {
+      createCommentHandler() {
+        this.canAddComment = false
+      }
     },
     components: {
       AppComment,
