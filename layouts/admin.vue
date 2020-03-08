@@ -1,7 +1,7 @@
 <template>
   <div class="admin-layout-wrap">
   <el-container :style="{height: '100%'}">
-    <el-aside width="200px">
+    <el-aside width="250px">
       <app-aside/>
     </el-aside>
     <el-main>
@@ -12,9 +12,10 @@
 </template>
 
 <script>
-  import AppAside from '@/components/admin/Aside'
+  import AppAside from '@/components/admin/Aside.vue'
     export default {
-        name: "admin"
+        name: "admin",
+      components: {AppAside}
     }
 </script>
 
