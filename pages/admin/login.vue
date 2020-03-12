@@ -69,6 +69,13 @@
           }
         })
       }
+    },
+    mounted() {
+      const {message} = this.$route.query
+
+      if(message === 'loginPlease') {
+        this.$message.info('Для начала войдите в систему')
+      }
     }
   }
 </script>
