@@ -1,5 +1,7 @@
+import ca from "element-ui/src/locale/lang/ca";
+
 export const state = () => ({
-  token: null
+  token: true
 })
 
 export const mutations = {
@@ -15,6 +17,13 @@ export const actions = {
   })
   dispatch('setToken', token)
 },
+  async createUser({commit}, formData) {
+    try {
+      console.log('create user', formData)
+    } catch (e) {
+
+    }
+  },
   setToken({commit}, token) {
     commit('setToken', token)
   }
