@@ -29,43 +29,59 @@
         <span style="margin-left: 10px">{{ comments.length }}</span>
       </template>
     </el-table-column>
-
     <el-table-column
       label="Действия">
       <template slot-scope="{row}">
-        <el-button
-          type="primary"
-          icon="el-icon-edit"
-          circle
-          @click="open(row._id)"/>
-        <el-button
-          type="danger"
-          icon="el-icon-delete"
-          circle
-          @click="remove(row._id)"/>
+        <el-tooltip effect="dark" content="Открыть пост" placement="top">
+          <el-button
+            type="primary"
+            icon="el-icon-edit"
+            circle
+            @click="open(row._id)"/>
+        </el-tooltip>
+        <el-tooltip effect="dark" content="Удалить пост" placement="top">
+          <el-button
+            type="danger"
+            icon="el-icon-delete"
+            circle
+            @click="remove(row._id)"/>
+        </el-tooltip>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
-    export default {
-        name: "list",
-      layout: 'admin',
-      middleware: ['admin-auth'],
-      async asyncData({store}) {
-          const posts = await store.dispatch('post/fetchAdmin')
-            return {posts}
+  export default {
+    name: "list",
+    layout: 'admin',
+    middleware: ['admin-auth'],
+    async asyncData({store}) {
+      const posts = await store.dispatch('post/fetchAdmin')
+      return {posts}
+    },
+    methods: {
+      open(id) {
+        this.$router.push(`/admin/post/${id}`)
       },
-      methods: {
-          open(id) {
-            console.log('open', id)
-          },
-        remove(id) {
-          console.log('remove', id)
+      async remove(id) {
+        try {
+          await this.$confirm('Удалить пост?', 'Внимание!', {
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Отменить',
+            type: 'warning'})
+
+          await this.$store.dispatch('post/remove', id)
+          this.posts = this.posts.filter(p => p._id !== id)
+
+          this.$message.success('Пост удален!')
+        } catch (e) {
+
         }
+
       }
     }
+  }
 </script>
 
 <style scoped>
