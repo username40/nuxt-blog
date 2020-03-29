@@ -23,5 +23,12 @@ export const actions = {
         resolve(posts.find(p => p._id === id))
       },1000)
     })
+  },
+  async create({}, {title, text}) {
+    return await new Promise(resolve => {
+      setTimeout(() => {
+        resolve()
+      }, 1000)
+    })
   }
 }
