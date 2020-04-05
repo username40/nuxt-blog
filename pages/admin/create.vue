@@ -28,6 +28,17 @@
           <vue-markdown>{{ controls.text }}</vue-markdown>
         </div>
       </el-dialog>
+      <el-upload
+        class="mb"
+        ref="upload"
+        drag
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :on-change="handleImageChange"
+      :auto-upload="false">
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">Перетащите картинку <em>или нажмите</em></div>
+        <div class="el-upload__tip" slot="tip">файлы с расширением jpg/png</div>
+      </el-upload>
       <el-form-item>
         <el-button
           type="primary"
@@ -47,6 +58,7 @@
     middleware: ['admin-auth'],
     data() {
       return {
+        image: null,
         previewDialog: false,
         loading: false,
         controls: {
@@ -66,18 +78,21 @@
     methods: {
       onSubmit() {
         this.$refs.form.validate(async valid => {
-          if (valid) {
+          if (valid && this.image) {
             this.loading = true
 
             const formData = {
               title: this.controls.title,
-              text: this.controls.text
+              text: this.controls.text,
+              image: this.image
             }
 
             try {
               await this.$store.dispatch('post/create', formData)
               this.controls.title = ''
               this.controls.text = ''
+              this.$refs.upload.clearFiles()
+              this.image = null
               this.$message.success('Пост был успешно создан')
               this.loading = false
             } catch (e) {
@@ -86,8 +101,13 @@
             }
 
 
+          } else {
+            this.$message.warning('Форма не валидна')
           }
         })
+      },
+      handleImageChange(file, filelist) {
+        this.image = file.raw
       }
     }
   }
