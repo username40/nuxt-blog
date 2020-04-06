@@ -1,18 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const keys = require('./keys')
 const mongoose = require('mongoose')
+const authRoutes = require('./routes/auth.routes')
+const keys = require('./keys')
 const app = express()
 
 mongoose.connect(keys.MONGO_URI)
-  .then(() => {console.log('mongo db connected!')})
+  .then(() => console.log('mongo db connected!'))
   .catch(error => console.error(error))
 
-module.exports = app
-
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
-
-// parse application/json
 app.use(bodyParser.json())
 
+app.use('/api/auth', authRoutes)
+
+module.exports = app
