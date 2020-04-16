@@ -54,7 +54,6 @@
         this.$refs.form.validate(async valid => {
           if(valid) {
             this.loading = true
-
             try {
               const formData = {
                 login: this.controls.login,
@@ -65,6 +64,7 @@
               this.$router.push('/admin')
               } catch (e) {
               this.loading = false
+              this.$message.info('Неверный логин или пароль')
             }
           }
         })
