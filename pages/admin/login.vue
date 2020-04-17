@@ -73,6 +73,15 @@
     mounted() {
       const {message} = this.$route.query
 
+      switch(message) {
+        case 'login':
+          this.$message.info('Для начала войдите в систему')
+        case 'logout':
+          this.$message.success('Вы успешно вышли из системы')
+        case 'session':
+          this.$message.warning('Время жизни сессии истекло! Зайдите заново')
+      }
+
       if(message === 'loginPlease') {
         this.$message.info('Для начала войдите в систему')
       }
