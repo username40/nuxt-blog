@@ -7,12 +7,12 @@ const storage = multer.diskStorage({
     cb(null, path.resolve(__dirname, '../..', 'static'))
   },
   filename(req, file, cb) {
-    cb(null, `${file.originalname}-${moment().format('DDMMYYYY-HHmnss_SSS')}`)
+    cb(null, `${moment().format('DDMMYYYY-HHmmss_SSS')}-${file.originalname}`)
   }
 })
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimeType === 'image/png' || file.mimeType === 'image/jpeg') {
+  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
     cb(null, true)
   } else {
     cb(null, false)
