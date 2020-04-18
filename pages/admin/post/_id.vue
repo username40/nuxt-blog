@@ -13,7 +13,7 @@
 <!--      <h2> войти в админ панель</h2>-->
       <el-form-item label="Текст в формате .md или .html" prop="text">
         <el-input
-          v-model.trim="controls.text"
+          v-model="controls.text"
           type="textarea"
           resize="none"
           :rows="10"
@@ -71,6 +71,9 @@
           }
         }
       },
+      mounted() {
+        this.controls.text = this.post.text
+      },
       methods: {
         onSubmit() {
           this.$refs.form.validate(async valid => {
@@ -79,7 +82,7 @@
 
               const formData = {
                 text: this.controls.text,
-                id: this.post.id
+                id: this.post._id
               }
 
               try {
