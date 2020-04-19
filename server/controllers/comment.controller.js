@@ -1,16 +1,10 @@
 const Comment = require('../models/comment.model')
 const Post = require('../models/post.model')
 
-module.exports.create = async(req, res) => {
+module.exports.create = async (req, res) => {
   try {
     const {name, text, postId} = req.body
     const comment = new Comment({name, text, postId})
-    // the same like
-    // const comment = new Comment({
-    //   name: req.body.name,
-    //   text: req.body.text,
-    //   postId: req.body.postId,
-    // })
 
     await comment.save()
 
@@ -19,6 +13,7 @@ module.exports.create = async(req, res) => {
     await post.save()
 
     res.status(201).json(comment)
+
   } catch (e) {
     res.status(500).json(e)
   }

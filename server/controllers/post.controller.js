@@ -22,7 +22,6 @@ module.exports.getAll = async (req, res) => {
   } catch (e) {
     res.status(500).json(e)
   }
-
 }
 
 module.exports.getById = async (req, res) => {
@@ -51,9 +50,7 @@ module.exports.update = async (req, res) => {
 
 module.exports.remove = async (req, res) => {
   try {
-    await Post.deleteOne({
-      _id: req.params.id
-    })
+    await Post.deleteOne({_id: req.params.id})
     res.json({message: 'Пост удален'})
   } catch (e) {
     res.status(500).json(e)
@@ -65,12 +62,9 @@ module.exports.addView = async (req, res) => {
     views: ++req.body.views
   }
   try {
-    await Post.findOneAndUpdate({
-      _id: req.params.id
-    }, {$set})
+    await Post.findOneAndUpdate({_id: req.params.id}, {$set})
     res.status(204).json()
   } catch (e) {
     res.status(500).json(e)
   }
 }
-

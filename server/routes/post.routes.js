@@ -4,6 +4,8 @@ const upload = require('../middleware/upload')
 const ctr = require('../controllers/post.controller')
 const router = Router()
 
+// Admin
+// /api/post/admin
 router.post(
   '/admin/',
   passport.authenticate('jwt', {session: false}),
@@ -35,8 +37,10 @@ router.delete(
   ctr.remove
 )
 
+// Base
+// /api/post
 router.get('/', ctr.getAll)
 router.get('/:id', ctr.getById)
-router.put('/:id', ctr.addView)
+router.put('/add/view/:id', ctr.addView)
 
 module.exports = router

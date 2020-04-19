@@ -2,8 +2,9 @@
 <el-row type="flex" justify="center">
   <el-col :xs="12" :sm="18" :md="12" :lg="10">
     <app-post
-    v-for="post of 3"
-    :key="post"/>
+    v-for="post of posts"
+    :key="post._id"
+    :post="post"/>
   </el-col>
 </el-row>
 </template>
@@ -14,6 +15,10 @@ export default {
    head: {
      title: 'Главная'
    },
+  async asyncData({store}) {
+    const posts = await store.dispatch('post/fetch')
+    return {posts}
+  },
   components: {
     AppPost
   }

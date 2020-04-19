@@ -1,4 +1,4 @@
-const {model, Schema} = require('mongoose')
+const {Schema, model} = require('mongoose')
 
 const postSchema = new Schema({
   title: {
@@ -24,5 +24,6 @@ const postSchema = new Schema({
       ref: 'comments'
     }
   ]
-
 })
+
+module.exports = model('posts', postSchema)

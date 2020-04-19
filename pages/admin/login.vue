@@ -54,7 +54,6 @@
         this.$refs.form.validate(async valid => {
           if(valid) {
             this.loading = true
-
             try {
               const formData = {
                 login: this.controls.login,
@@ -65,6 +64,7 @@
               this.$router.push('/admin')
               } catch (e) {
               this.loading = false
+              this.$message.info('Неверный логин или пароль')
             }
           }
         })
@@ -72,6 +72,15 @@
     },
     mounted() {
       const {message} = this.$route.query
+
+      switch(message) {
+        case 'login':
+          this.$message.info('Для начала войдите в систему')
+        case 'logout':
+          this.$message.success('Вы успешно вышли из системы')
+        case 'session':
+          this.$message.warning('Время жизни сессии истекло! Зайдите заново')
+      }
 
       if(message === 'loginPlease') {
         this.$message.info('Для начала войдите в систему')

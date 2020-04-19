@@ -7,7 +7,7 @@
         :rules="rules"
         ref="form">
         <el-form-item label="Ваше имя" prop="name">
-          <el-input v-model.trim="controls.name"/>
+          <el-input v-model="controls.name"/>
         </el-form-item>
 
         <el-form-item label="Текст комментария" prop="text">
@@ -32,6 +32,12 @@
 <script>
     export default {
         name: "CommentForm",
+      props: {
+          postId: {
+            type: String,
+            required: true
+          }
+      },
       data() {
           return {
             loading: false,
@@ -51,21 +57,18 @@
       },
       methods: {
           onSubmit() {
-            this.$refs.form.validate((valid) => {
+            this.$refs.form.validate(async valid => {
               if (valid) {
                 this.loading = true
                 const formData = {
                   name: this.controls.name,
                   text: this.controls.text,
-                  postId: ''
+                  postId: this.postId
                 }
-
                 try {
-                  setTimeout(() => {
-                    this.$emit('created')
+                    const newComment = await this.$store.dispatch('comment/create', formData)
+                    this.$emit('created', newComment)
                     this.$message.success('комментарий добавлен')
-                  },2000)
-
                 } catch (e) {
                   this.loading = false
                   console.log(e)
