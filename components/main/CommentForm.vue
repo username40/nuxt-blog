@@ -7,7 +7,7 @@
         :rules="rules"
         ref="form">
         <el-form-item label="Ваше имя" prop="name">
-          <el-input v-model.trim="controls.name"/>
+          <el-input v-model="controls.name"/>
         </el-form-item>
 
         <el-form-item label="Текст комментария" prop="text">
@@ -37,7 +37,7 @@
             type: String,
             required: true
           }
-      }
+      },
       data() {
           return {
             loading: false,
@@ -66,8 +66,8 @@
                   postId: this.postId
                 }
                 try {
-                    await this.$store.dispatch('comment/create', formData)
-                    this.$emit('created')
+                    const newComment = await this.$store.dispatch('comment/create', formData)
+                    this.$emit('created', newComment)
                     this.$message.success('комментарий добавлен')
                 } catch (e) {
                   this.loading = false

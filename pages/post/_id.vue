@@ -35,7 +35,7 @@
       <div v-if="post.comments.length">
         <app-comment
           v-for="item in post.comments"
-          :key="item"
+          :key="item._id"
           :comment="item"
         />
       </div>
@@ -63,7 +63,8 @@
       }
     },
     methods: {
-      createCommentHandler() {
+      createCommentHandler(comment) {
+        this.post.comments.unshift(comment)
         this.canAddComment = false
       }
     },
