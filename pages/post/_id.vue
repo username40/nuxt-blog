@@ -2,7 +2,7 @@
   <article class="post">
     <header class="post-header">
       <div class="post-title">
-        <h1>Post title</h1>
+        <h1>{{ post.title }}</h1>
         <nuxt-link to="/">
           <i class="el-icon-back"></i>
         </nuxt-link>
@@ -10,34 +10,31 @@
       <div class="post-info">
         <small>
           <i class="el-icon-time"></i>
-          {{ new Date().toLocaleString() }}
+          {{ new Date(post.date).toLocaleString() }}
         </small>
         <small>
           <i class="el-icon-view"></i>
-          42
+          {{ post.views }}
         </small>
       </div>
       <div class="post-image">
-        <img src="https://media.globalchampionstour.com/cache/750x429/assets/berlin.jpg"
+        <img :src="post.imageUrl"
              alt="post image">
       </div>
     </header>
     <main class="post-content">
-      <p>Lorem ipsum dolor sit amet.</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <p>Lorem ipsum dolor sit amet.</p>
+
+      <vue-markdown>{{ post.text }}</vue-markdown>
     </main>
     <footer>
       <app-comment-form
         v-if="canAddComment"
         @created="createCommentHandler"
+        :postId="post._id"
       />
-      <div v-if="true">
+      <div v-if="post.comments.length">
         <app-comment
-          v-for="item in 4"
+          v-for="item in post.comments"
           :key="item"
           :comment="item"
         />
@@ -54,6 +51,11 @@
   export default {
     validate({params}) {
       return Boolean(params.id)
+    },
+    async asyncData({store, params}) {
+      const post = await store.dispatch('post/fetchById', params.id)
+      await store.dispatch('post/addView', post)
+      return {post: {...post, views: ++post.views}}
     },
     data() {
       return {
