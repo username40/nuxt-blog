@@ -45,12 +45,16 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    ['@nuxtjs/pwa', {icon: false}]
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+  },
+  env: {
+    appName: 'SSR Blog'
   },
   /*
   ** Build configuration

@@ -22,7 +22,7 @@
       <div class="mb">
         <small class="mr">
           <i class="el-icon-message"></i>
-          <span>{{ new Date(post.date).toLocaleString() }}</span>
+          <span>{{ post.date | date }}</span>
         </small>
 
         <small>
@@ -51,7 +51,7 @@
       },
       head() {
         return {
-          title: `Пост | ${this.post.title}`
+          title: `${this.post.title} | ${process.env.appName}`
         }
       },
       async asyncData({store, params}) {
