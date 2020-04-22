@@ -56,6 +56,9 @@
     name: "list",
     layout: 'admin',
     middleware: ['admin-auth'],
+    head: {
+      title: `Все посты | ${process.env.appName}`
+    },
     async asyncData({store}) {
       const posts = await store.dispatch('post/fetchAdmin')
       return {posts}

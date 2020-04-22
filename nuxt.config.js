@@ -52,6 +52,9 @@ module.exports = {
   */
   axios: {
   },
+  env: {
+    appName: 'SSR Blog'
+  },
   /*
   ** Build configuration
   */
