@@ -22,7 +22,7 @@
       <div class="mb">
         <small class="mr">
           <i class="el-icon-message"></i>
-          <span>{{ new Date(post.date).toLocaleString() }}</span>
+          <span>{{ post.date | date }}</span>
         </small>
 
         <small>
