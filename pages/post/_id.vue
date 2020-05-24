@@ -54,7 +54,11 @@
     },
     head() {
       return {
-        title: `${this.post.title} | ${process.env.appName}`
+        title: `${this.post.title} | ${process.env.appName}`,
+        meta: [
+          {hid: `post - ${this.post._id}`, name: 'description', content: this.post.title},
+          {hid: `post - ${this.post._id}`, name: 'keywords', content: 'post, vue, nuxt'},
+        ]
       }
     },
     async asyncData({store, params}) {
