@@ -1,7 +1,6 @@
 # nuxt-blog
 
 > My fullstack nuxt-js pet project)))
-Demo: https://ssr-blog-on-nuxt.herokuapp.com/
 
 ## Build Setup
 
